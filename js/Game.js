@@ -35,7 +35,8 @@ class Game {
             "YOU SHALL NOT PASS", 
             "and he lived happily ever after",
             "May the Force be with you",
-            "What about second breakfast"
+            "What about second breakfast",
+            "just keep swimming"
         ];
 
         //turn each item in the array into a new instance of Phrase
@@ -65,7 +66,19 @@ class Game {
         buttonSelected.style.cursor = "initial";
 
         //check if the letter is in the phrase
-        game.activePhrase.checkLetter(buttonSelected);
+        if (game.activePhrase.checkLetter(buttonSelected)) {
+            buttonSelected.classList.add("chosen");
+            game.activePhrase.showMatchedLetter(buttonSelected.innerText);
+
+            //check if player won
+            if(this.checkForWin()) { 
+                this.gameOver("win");
+            }
+        }
+        else {
+            buttonSelected.classList.add("wrong");
+            game.removeLife();
+        }
     }
 
     /**
@@ -117,9 +130,7 @@ class Game {
         });
 
         //if current guessed string matches the active phrase, player wins
-        if (currentString === this.activePhrase.phrase) {
-            this.gameOver("win");
-        }
+        return currentString === this.activePhrase.phrase; 
     }
 
     /**
@@ -128,6 +139,7 @@ class Game {
      */
 
     gameOver(gameStatus) {
+        console.log(gameStatus);
         //put back the overlay 
         startScreen.style.display = "flex";
 

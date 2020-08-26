@@ -43,17 +43,7 @@ class Phrase {
      */
 
     checkLetter(currentLetter) {
-
-        //check if letter is in the phrase
-        if(this.phrase.includes(currentLetter.innerText)) {
-            currentLetter.classList.add("chosen");
-            this.displayLetter(currentLetter.innerText);
-            game.checkForWin();
-        }
-        else {
-            currentLetter.classList.add("wrong");
-            game.removeLife();
-        }
+        return this.phrase.includes(currentLetter.innerText);
     }
 
     /**
@@ -61,7 +51,7 @@ class Phrase {
      * @param {string} currentLetter - current letter guessed correctly
      */
 
-    displayLetter(currentLetter) {
+    showMatchedLetter(currentLetter) {
         const lettersList = document.querySelectorAll(".letter"); 
 
         //go through the phrase and display the letter guessed correctly
